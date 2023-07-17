@@ -30,4 +30,14 @@ class AppSharedPrefs {
   Future<void> saveUserMetrics(String userMetric) async {
     await sharedPreferences?.setString(userMetricsKey, userMetric);
   }
+
+  bool getHadUserSavedLocationBefore() {
+    final bool cities =
+        sharedPreferences?.getBool(hadSavedCurrentLocation) ?? false;
+    return cities;
+  }
+
+  Future<void> saveUserHadSavedLocationBefore() async {
+    await sharedPreferences?.setBool(hadSavedCurrentLocation, true);
+  }
 }
