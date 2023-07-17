@@ -21,9 +21,9 @@ class BaseService {
       if (params.isNotEmpty) {
         globalParams.addAll(params);
       }
-      final Uri _uri = Uri.parse(url).replace(queryParameters: globalParams);
+      final Uri tempUri = Uri.parse(url).replace(queryParameters: globalParams);
       final http.Response response =
-          await http.get(_uri, headers: headers).timeout(timeOutDuration);
+          await http.get(tempUri, headers: headers).timeout(timeOutDuration);
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final dynamic decodedJson = jsonDecode(response.body);
         if (decodedJson['success'] != null && decodedJson['success'] == false) {
