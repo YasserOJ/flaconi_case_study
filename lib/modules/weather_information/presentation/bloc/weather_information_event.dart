@@ -15,3 +15,9 @@ class GetCurrentWeatherInformationForMultipleCitiesEvent
     implements WeatherInformationEvent {
   const GetCurrentWeatherInformationForMultipleCitiesEvent();
 }
+
+class AddCityWeatherInformation implements WeatherInformationEvent {
+  final String cityName;
+
+  const AddCityWeatherInformation(this.cityName);
+}

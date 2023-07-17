@@ -1,4 +1,5 @@
 import 'package:flaconi_case_study/modules/weather_information/presentation/bloc/weather_information_bloc.dart';
+import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/add_city_widget.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/loading_indicator_widget.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_information_view_app_bar.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_information_view_floating_button.dart';
@@ -16,7 +17,7 @@ class WeatherInformationViewPortrait extends StatefulWidget {
 
 class _WeatherInformationViewPortraitState
     extends State<WeatherInformationViewPortrait> {
-  bool shouldLoadingIndicator = false;
+  bool shouldShowLoadingIndicator = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,20 +27,33 @@ class _WeatherInformationViewPortraitState
         switchValueChanged: (bool value) {},
       ),
       floatingActionButton: WeatherInformationViewFloatingButton(
-        buttonClicked: () {},
+        buttonClicked: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AddCityWidget(
+                onTapFunction: (text) async {
+                  context.read<WeatherInformationBloc>().add(
+                        AddCityWeatherInformation(text),
+                      );
+                },
+              );
+            },
+          );
+        },
       ),
       body: BlocListener<WeatherInformationBloc, WeatherInformationState>(
         listener: (context, state) {
           setState(() {
             if (state is WeatherInformationLoading) {
-              shouldLoadingIndicator = true;
+              shouldShowLoadingIndicator = true;
             } else {
-              shouldLoadingIndicator = false;
+              shouldShowLoadingIndicator = false;
             }
           });
         },
         child: LoadingIndicatorWidget(
-          shouldShowLoadingIndicator: shouldLoadingIndicator,
+          shouldShowLoadingIndicator: shouldShowLoadingIndicator,
           child: const WeatherListView(),
         ),
       ),
