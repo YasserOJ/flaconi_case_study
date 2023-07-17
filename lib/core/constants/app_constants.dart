@@ -6,6 +6,7 @@ const Duration timeOutDuration = Duration(seconds: 20);
 const String accessKey = 'access_key';
 const String userCitiesKey = 'user_cities';
 const String userMetricsKey = 'user_metrics';
+const String hadSavedCurrentLocation = 'user_had_saved_current_location';
 const String celsiusKey = 'celsius';
 const String fahrenheitKey = 'fahrenheit';
 

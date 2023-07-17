@@ -23,6 +23,7 @@ dependencies:
   auto_route: ^7.7.0
   lottie: ^2.4.0
   intl: ^0.18.0
+  location: ^5.0.0
 
 dev_dependencies:
   flutter_test:
