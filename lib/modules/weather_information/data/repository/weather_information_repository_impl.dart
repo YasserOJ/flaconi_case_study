@@ -24,7 +24,7 @@ class WeatherInformationRepositoryImpl implements WeatherInformationRepository {
         final WeatherResponseModel result =
             await remoteDataSource.getCurrentWeatherByCity(name);
         final WeatherInformationEntity? weatherInformationEntity =
-            result.current;
+            result.mapToEntity();
         if (weatherInformationEntity != null) {
           return Success(weatherInformationEntity);
         } else {
