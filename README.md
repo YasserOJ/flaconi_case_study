@@ -18,6 +18,7 @@ flutter run --dart-define-from-file=api-keys.json
 
 > As for the run command it has the dart-define-from-file parameters which allows to add secret api
 > key and get them from json file for more security
+
 > PS: I had to push api-keys to repository for code integrity reasons but it should be ignored via
 > .gitignore to keep value hidden and secure
 
