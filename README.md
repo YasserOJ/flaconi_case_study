@@ -1,17 +1,24 @@
-# flaconi_case_study
+# Weather Application
 
-A flaconi case study weather app
+## Author: Yasser Omar Jammeli
 
-## Getting Started
+this flutter weather application is based on MVVM clean architecture.
 
-This project is a starting point for a Flutter application.
+To run this application you to type the following in the terminal:
 
-A few resources to get you started if this is your first Flutter project:
+```sh
+flutter packages pub run build_runner build 
+flutter run --dart-define-from-file=api-keys.json
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+> the first command is to run build_runner and generate generated code such routers for navigation
+> and injectable to inject classes (Dependency injection)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# flaconi_case_study
+> As for the run command it has the dart-define-from-file parameters which allows to add secret api
+> key and get them from json file for more security
+> PS: I had to push api-keys to repository for code integrity reasons but it should be ignored via
+> .gitignore to keep value hidden and secure
+
+It is Composed of two parts:
+- Core
+- And modules
