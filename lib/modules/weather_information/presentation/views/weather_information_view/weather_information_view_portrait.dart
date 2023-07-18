@@ -26,7 +26,11 @@ class _WeatherInformationViewPortraitState
     return Scaffold(
       appBar: WeatherInformationViewAppBar(
         appBar: AppBar(),
-        switchValueChanged: (bool value) {},
+        switchValueChanged: (bool value) {
+          context.read<WeatherInformationBloc>().add(
+                ChangeUserMetrics(value),
+              );
+        },
       ),
       floatingActionButton: WeatherInformationViewFloatingButton(
         buttonClicked: () {

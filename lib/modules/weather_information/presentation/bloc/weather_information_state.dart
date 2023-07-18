@@ -16,3 +16,5 @@ class WeatherInformationSuccess extends WeatherInformationState {}
 class WeatherInformationFailed extends WeatherInformationState {}
 
 class WeatherInformationLimitReached extends WeatherInformationState {}
+
+class WeatherInformationChangedMetrics extends WeatherInformationState {}
