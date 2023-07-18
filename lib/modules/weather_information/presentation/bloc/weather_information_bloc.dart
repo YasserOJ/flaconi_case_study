@@ -36,7 +36,7 @@ class WeatherInformationBloc
             case Success(data: final data):
               weatherInformation.add(data);
               emit(WeatherInformationSuccess());
-            case Failure(errorModel: final error):
+            case Failure(errorModel: _):
               emit(WeatherInformationFailed());
           }
         }
@@ -57,7 +57,7 @@ class WeatherInformationBloc
               case Success(data: final data):
                 succeedRequests++;
                 tempWeatherInformation.add(data);
-              case Failure(errorModel: final error):
+              case Failure(errorModel: _):
                 emit(WeatherInformationFailed());
                 return;
             }
@@ -82,7 +82,7 @@ class WeatherInformationBloc
                 cities?.add(data.cityName);
                 locator<AppSharedPrefs>().saveUserCities(cities ?? []);
                 emit(WeatherInformationSuccess());
-              case Failure(errorModel: final error):
+              case Failure(errorModel: _):
                 emit(WeatherInformationFailed());
             }
           } else {
