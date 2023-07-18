@@ -1,3 +1,6 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:flaconi_case_study/core/utils/navigation_setup/app_router.gr.dart';
+import 'package:flaconi_case_study/modules/weather_information/domain/entity/weather_information_entity.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/bloc/weather_information_bloc.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/add_city/add_city_widget.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/error_popoups/limit_reached_error_popup.dart';
@@ -84,7 +87,16 @@ class _WeatherInformationViewPortraitState
         },
         child: LoadingIndicatorWidget(
           shouldShowLoadingIndicator: shouldShowLoadingIndicator,
-          child: const WeatherListView(),
+          child: WeatherListView(
+            didSelectItem: (WeatherInformationEntity weatherInformationEntity,
+                int selectedIndex) {
+              context.router.push(
+                WeatherInformationDetailsPortraitRoute(
+                  weatherInformationEntity: weatherInformationEntity,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
