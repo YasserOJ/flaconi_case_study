@@ -21,67 +21,73 @@ class WeatherInformationBloc
 
   WeatherInformationBloc(this.getCurrentWeatherInformationByCity)
       : super(WeatherInformationInitial()) {
-    on<WeatherInformationEvent>((event, emit) async {
-      if (event is GetCurrentWeatherInformationByCityEvent) {
-        emit(WeatherInformationLoading());
-        final result = await getCurrentWeatherInformationByCity(
-          Params(
-            cityName: event.cityName,
-          ),
-        );
-        switch (result) {
-          case Success(data: final data):
-            weatherInformation.add(data);
-            emit(WeatherInformationSuccess());
-          case Failure(errorModel: final error):
-            emit(WeatherInformationFailed());
-        }
-      }
-      if (event is GetCurrentWeatherInformationForMultipleCitiesEvent) {
-        emit(WeatherInformationLoading());
-        int succeedRequests = 0;
-        final List<String> cities =
-            locator<UserManager>().userCitiesNames ?? [];
-        List<WeatherInformationEntity> tempWeatherInformation = [];
-
-        for (String city in cities) {
+    on<WeatherInformationEvent>(
+      (event, emit) async {
+        if (event is GetCurrentWeatherInformationByCityEvent) {
+          emit(WeatherInformationLoading());
           final result = await getCurrentWeatherInformationByCity(
             Params(
-              cityName: city,
+              cityName: event.cityName,
             ),
           );
           switch (result) {
             case Success(data: final data):
-              succeedRequests++;
-              tempWeatherInformation.add(data);
+              weatherInformation.add(data);
+              emit(WeatherInformationSuccess());
             case Failure(errorModel: final error):
               emit(WeatherInformationFailed());
-              return;
           }
         }
-        if (succeedRequests == cities.length) {
-          weatherInformation = tempWeatherInformation;
-          emit(WeatherInformationSuccess());
-        }
-      }
-      if (event is AddCityWeatherInformation) {
-        emit(WeatherInformationLoading());
-        final result = await getCurrentWeatherInformationByCity(
-          Params(
-            cityName: event.cityName,
-          ),
-        );
-        switch (result) {
-          case Success(data: final data):
-            weatherInformation.add(data);
-            final cities = locator<UserManager>().userCitiesNames;
-            cities?.add(data.cityName);
-            locator<AppSharedPrefs>().saveUserCities(cities ?? []);
+        if (event is GetCurrentWeatherInformationForMultipleCitiesEvent) {
+          emit(WeatherInformationLoading());
+          int succeedRequests = 0;
+          final List<String> cities =
+              locator<UserManager>().userCitiesNames ?? [];
+          List<WeatherInformationEntity> tempWeatherInformation = [];
+
+          for (String city in cities) {
+            final result = await getCurrentWeatherInformationByCity(
+              Params(
+                cityName: city,
+              ),
+            );
+            switch (result) {
+              case Success(data: final data):
+                succeedRequests++;
+                tempWeatherInformation.add(data);
+              case Failure(errorModel: final error):
+                emit(WeatherInformationFailed());
+                return;
+            }
+          }
+          if (succeedRequests == cities.length) {
+            weatherInformation = tempWeatherInformation;
             emit(WeatherInformationSuccess());
-          case Failure(errorModel: final error):
-            emit(WeatherInformationFailed());
+          }
         }
-      }
-    });
+        if (event is AddCityWeatherInformation) {
+          if (weatherInformation.length < 4) {
+            emit(WeatherInformationLoading());
+            final result = await getCurrentWeatherInformationByCity(
+              Params(
+                cityName: event.cityName,
+              ),
+            );
+            switch (result) {
+              case Success(data: final data):
+                weatherInformation.add(data);
+                final cities = locator<UserManager>().userCitiesNames;
+                cities?.add(data.cityName);
+                locator<AppSharedPrefs>().saveUserCities(cities ?? []);
+                emit(WeatherInformationSuccess());
+              case Failure(errorModel: final error):
+                emit(WeatherInformationFailed());
+            }
+          } else {
+            emit(WeatherInformationLimitReached());
+          }
+        }
+      },
+    );
   }
 }
