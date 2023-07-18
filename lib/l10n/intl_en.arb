@@ -11,5 +11,9 @@
   "wind_speed_metric_text": "KM/h",
   "good_morning_text": "Good Morning",
   "good_afternoon_text": "Good Afternoon",
-  "good_night_text": "Good Night"
+  "good_night_text": "Good Night",
+  "general_error_text": "An error has occured when loading cities weather information.\nPlease retry again.",
+  "error_text": "Error",
+  "reached_limit_error_text": "You have Reached the limit of cities that you can fetch.\nPlease subscribe to our premium plan to get unlimited cities and more.",
+  "subscribe_text": "Subscribe"
 }

@@ -169,6 +169,46 @@ class Localized {
       args: [],
     );
   }
+
+  /// `An error has occured when loading cities weather information.\nPlease retry again.`
+  String get general_error_text {
+    return Intl.message(
+      'An error has occured when loading cities weather information.\nPlease retry again.',
+      name: 'general_error_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error`
+  String get error_text {
+    return Intl.message(
+      'Error',
+      name: 'error_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You have Reached the limit of cities that you can fetch.\nPlease subscribe to our premium plan to get unlimited cities and more.`
+  String get reached_limit_error_text {
+    return Intl.message(
+      'You have Reached the limit of cities that you can fetch.\nPlease subscribe to our premium plan to get unlimited cities and more.',
+      name: 'reached_limit_error_text',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Subscribe`
+  String get subscribe_text {
+    return Intl.message(
+      'Subscribe',
+      name: 'subscribe_text',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<Localized> {
