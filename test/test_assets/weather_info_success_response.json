@@ -1,0 +1,41 @@
+{
+  "request": {
+    "type": "LatLon",
+    "query": "Lat 48.99 and Lon 2.37",
+    "language": "en",
+    "unit": "m"
+  },
+  "location": {
+    "name": "Saint-Brice-Sous-Foret",
+    "country": "France",
+    "region": "Picardie",
+    "lat": "49.000",
+    "lon": "2.367",
+    "timezone_id": "Europe/Paris",
+    "localtime": "2023-07-18 22:48",
+    "localtime_epoch": 1689720480,
+    "utc_offset": "2.0"
+  },
+  "current": {
+    "observation_time": "08:48 PM",
+    "temperature": 23,
+    "weather_code": 113,
+    "weather_icons": [
+      "https://cdn.worldweatheronline.com/images/wsymbols01_png_64/wsymbol_0008_clear_sky_night.png"
+    ],
+    "weather_descriptions": [
+      "Clear"
+    ],
+    "wind_speed": 4,
+    "wind_degree": 330,
+    "wind_dir": "NNW",
+    "pressure": 1014,
+    "precip": 0,
+    "humidity": 50,
+    "cloudcover": 0,
+    "feelslike": 25,
+    "uv_index": 1,
+    "visibility": 10,
+    "is_day": "no"
+  }
+}
