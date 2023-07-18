@@ -20,5 +20,32 @@ flutter run --dart-define-from-file=api-keys.json
 > .gitignore to keep value hidden and secure
 
 It is Composed of two parts:
+
 - Core
 - And modules
+
+### Core
+
+the Core part of the application contains generic classes, helpers and utils
+It is composed of:
+
+- Common models: generic application models such as error model and result model
+- constants: contains the application constants properties
+- enums: contains the application enumerations
+- exceptions: contains application custom exceptions classes
+- managers: contains application properties holders (singleton)
+- service: contains application base service which contains generic api methods
+- useCase: contains application generic useCase class
+- utils: contains application utils such as applicationSharedPrefrences, connectivity, dependency
+  injection code, extensions, ui utils ...
+
+### Modules
+
+The modules part is the application different modules for example for this application we have the
+weather information module
+
+the module is composed of:
+
+- Data : which holds module data source (remote and local), models and repository implementation
+- Domain: which holds module repository interface, entities and useCases
+- Presentation: which holds module views, widgets and stateManger classes (bloc fot this example)
