@@ -26,8 +26,8 @@ class Config {
 
   void init(BuildContext context) {
     _mediaQueryData = MediaQuery.of(context);
-    _screenWidth = _mediaQueryData.size.width;
-    _screenHeight = _mediaQueryData.size.height;
+    _screenWidth = _mediaQueryData.size.shortestSide;
+    _screenHeight = _mediaQueryData.size.longestSide;
     _devicePixelRatio = _mediaQueryData.devicePixelRatio;
     _targetPlatform = Theme.of(context).platform;
     this.context = context;

@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flaconi_case_study/core/common_models/api_result_model.dart';
+import 'package:flaconi_case_study/core/constants/app_constants.dart';
+import 'package:flaconi_case_study/core/enums/weather_metrics_enum.dart';
 import 'package:flaconi_case_study/core/managers/user_manager.dart';
 import 'package:flaconi_case_study/core/utils/app_shared_preferences/app_shared_prefs.dart';
 import 'package:flaconi_case_study/core/utils/dependency_injection/component/app_component.dart';
@@ -86,6 +88,58 @@ class WeatherInformationBloc
           } else {
             emit(WeatherInformationLimitReached());
           }
+        }
+        if (event is ChangeUserMetrics) {
+          emit(WeatherInformationLoading());
+          if (event.toFahrenheit) {
+            final List<WeatherInformationEntity> tempList =
+                weatherInformation.map((e) {
+              final tempWeatherInfoEntity = WeatherInformationEntity(
+                weekDayName: e.weekDayName,
+                weekDayAbbreviationName: e.weekDayAbbreviationName,
+                temperature: ((e.temperature * 1.8) + 32).round(),
+                feelsLike: ((e.feelsLike * 1.8) + 32).round(),
+                weatherIcon: e.weatherIcon,
+                weatherDescription: e.weatherDescription,
+                windSpeed: e.windSpeed,
+                windDegree: e.windDegree,
+                windDir: e.windDir,
+                pressure: e.pressure,
+                humidity: e.humidity,
+                cityName: e.cityName,
+                isDay: e.isDay,
+              );
+              return tempWeatherInfoEntity;
+            }).toList();
+            weatherInformation = tempList;
+          } else {
+            final List<WeatherInformationEntity> tempList =
+                weatherInformation.map((e) {
+              final tempWeatherInfoEntity = WeatherInformationEntity(
+                weekDayName: e.weekDayName,
+                weekDayAbbreviationName: e.weekDayAbbreviationName,
+                temperature: ((e.temperature - 32) * .556).round(),
+                feelsLike: ((e.feelsLike - 32) * .556).round(),
+                weatherIcon: e.weatherIcon,
+                weatherDescription: e.weatherDescription,
+                windSpeed: e.windSpeed,
+                windDegree: e.windDegree,
+                windDir: e.windDir,
+                pressure: e.pressure,
+                humidity: e.humidity,
+                cityName: e.cityName,
+                isDay: e.isDay,
+              );
+              return tempWeatherInfoEntity;
+            }).toList();
+            weatherInformation = tempList;
+          }
+          locator<AppSharedPrefs>()
+              .saveUserMetrics(event.toFahrenheit ? fahrenheitKey : celsiusKey);
+          locator<UserManager>().userMetric = event.toFahrenheit
+              ? WeatherMetricsEnum.fahrenheit
+              : WeatherMetricsEnum.celsius;
+          emit(WeatherInformationChangedMetrics());
         }
       },
     );

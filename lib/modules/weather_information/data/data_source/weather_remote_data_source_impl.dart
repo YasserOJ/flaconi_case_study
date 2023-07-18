@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flaconi_case_study/core/exceptions/generic_exception.dart';
+import 'package:flaconi_case_study/core/exceptions/server_exception.dart';
 import 'package:flaconi_case_study/core/constants/app_constants.dart';
 import 'package:flaconi_case_study/core/enums/weather_metrics_enum.dart';
 import 'package:flaconi_case_study/core/managers/user_manager.dart';
@@ -30,6 +32,15 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
       final WeatherResponseModel responseModel =
           WeatherResponseModel.fromJson(decodedJson);
       return responseModel;
+    } on ServerException catch (serverException) {
+      throw ServerException(
+        info: serverException.info,
+      );
+    } on GenericException catch (serverException) {
+      throw GenericException(
+        statusCode: serverException.statusCode,
+        message: serverException.message,
+      );
     } catch (e) {
       throw Exception();
     }

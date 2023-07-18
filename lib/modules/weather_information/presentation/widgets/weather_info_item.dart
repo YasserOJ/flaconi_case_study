@@ -30,48 +30,49 @@ class WeatherInfoItem extends StatelessWidget {
             color: isSelected && isItemSelectable
                 ? Theme.of(context).colorScheme.inversePrimary.withOpacity(.5)
                 : Colors.white,
-            height: config.getResponsiveItemSize(85),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.only(
-                    left: config.getResponsiveItemSize(18),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        itemWeatherInformation.weekDayAbbreviationName,
-                        style: boldTextStyle.copyWith(
-                          fontSize: config.getResponsiveItemSize(23),
-                        ),
-                      ),
-                      Text(
-                        itemWeatherInformation.cityName,
-                        style: boldTextStyle.copyWith(
-                          fontSize: config.getResponsiveItemSize(18),
-                        ),
-                      ),
-                      RichText(
-                        text: TextSpan(
-                          text: Localized.of(context).min_max_text,
+                Flexible(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      left: config.getResponsiveItemSize(18),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          itemWeatherInformation.weekDayAbbreviationName,
                           style: boldTextStyle.copyWith(
-                            fontSize: config.getResponsiveItemSize(14),
-                            color: Colors.black,
+                            fontSize: config.getResponsiveItemSize(23),
                           ),
-                          children: [
-                            TextSpan(
-                              text:
-                                  ' ${(itemWeatherInformation.temperature) - 5}°/${(itemWeatherInformation.temperature) + 5}°',
-                              style: normalTextStyle,
-                            ),
-                          ],
                         ),
-                      ),
-                    ],
+                        Text(
+                          itemWeatherInformation.cityName,
+                          style: boldTextStyle.copyWith(
+                            fontSize: config.getResponsiveItemSize(18),
+                          ),
+                        ),
+                        RichText(
+                          text: TextSpan(
+                            text: Localized.of(context).min_max_text,
+                            style: boldTextStyle.copyWith(
+                              fontSize: config.getResponsiveItemSize(14),
+                              color: Colors.black,
+                            ),
+                            children: [
+                              TextSpan(
+                                text:
+                                    ' ${(itemWeatherInformation.temperature) - 5}°/${(itemWeatherInformation.temperature) + 5}°',
+                                style: normalTextStyle,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

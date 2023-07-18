@@ -21,3 +21,9 @@ class AddCityWeatherInformation implements WeatherInformationEvent {
 
   const AddCityWeatherInformation(this.cityName);
 }
+
+class ChangeUserMetrics implements WeatherInformationEvent {
+  final bool toFahrenheit;
+
+  const ChangeUserMetrics(this.toFahrenheit);
+}

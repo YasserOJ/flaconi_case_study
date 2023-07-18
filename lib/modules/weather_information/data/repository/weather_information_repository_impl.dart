@@ -1,5 +1,7 @@
 import 'package:flaconi_case_study/core/common_models/api_result_model.dart';
 import 'package:flaconi_case_study/core/common_models/error_model.dart';
+import 'package:flaconi_case_study/core/exceptions/generic_exception.dart';
+import 'package:flaconi_case_study/core/exceptions/server_exception.dart';
 import 'package:flaconi_case_study/core/utils/connectivity/network_info.dart';
 import 'package:flaconi_case_study/modules/weather_information/data/data_source/weather_remote_data_source.dart';
 import 'package:flaconi_case_study/modules/weather_information/data/model/weather_response_model.dart';
@@ -23,14 +25,21 @@ class WeatherInformationRepositoryImpl implements WeatherInformationRepository {
       try {
         final WeatherResponseModel result =
             await remoteDataSource.getCurrentWeatherByCity(name);
-        final WeatherInformationEntity? weatherInformationEntity =
+        final WeatherInformationEntity weatherInformationEntity =
             result.mapToEntity();
-        if (weatherInformationEntity != null) {
-          return Success(weatherInformationEntity);
-        } else {
-          return Failure(ErrorModel());
-        }
-      } catch (_) {
+        return Success(weatherInformationEntity);
+      } on ServerException catch (serverException) {
+        return Failure(
+          ErrorModel(message: serverException.info),
+        );
+      } on GenericException catch (serverException) {
+        return Failure(
+          ErrorModel(
+            message: serverException.message,
+            statusCode: serverException.statusCode,
+          ),
+        );
+      } catch (e) {
         return Failure(ErrorModel());
       }
     } else {

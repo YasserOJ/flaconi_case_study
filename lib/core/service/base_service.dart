@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:flaconi_case_study/core/common_models/error_model.dart';
+import 'package:flaconi_case_study/core/exceptions/generic_exception.dart';
+import 'package:flaconi_case_study/core/exceptions/server_exception.dart';
 import 'package:flaconi_case_study/core/constants/app_constants.dart';
 import 'package:injectable/injectable.dart';
 import 'package:http/http.dart' as http;
@@ -27,36 +29,18 @@ class BaseService {
       if (response.statusCode >= 200 && response.statusCode < 300) {
         final dynamic decodedJson = jsonDecode(response.body);
         if (decodedJson['success'] != null && decodedJson['success'] == false) {
-          throw Exception();
+          ErrorModel errorModel = ErrorModel.fromJson(decodedJson);
+          throw ServerException(info: errorModel.message);
         } else {
           return response;
         }
       } else {
-        throw Exception();
+        throw GenericException(
+            statusCode: response.statusCode,
+            message: 'Status code is different than success codes');
       }
-    } on TimeoutException catch (_) {
-      throw Exception();
     } on Exception {
-      throw Exception();
+      throw ServerException(info: 'Server Exception');
     }
-  }
-
-  String? _getResponseErrorCode(int statusCode, http.Response response) {
-    final Map<String, dynamic> httpErrorJson = json.decode(response.body);
-    final String? httpError = ErrorModel.fromJson(httpErrorJson).errorCode;
-    if (httpError != null) {
-      return httpError;
-    }
-    return null;
-  }
-
-  String? _getResponseMessage(int statusCode, http.Response response) {
-    final Map<String, dynamic> httpErrorJson = json.decode(response.body);
-    final String? httpError = ErrorModel.fromJson(httpErrorJson).message;
-    if (httpError != null) {
-      final String utfDecodedError = utf8.decode(httpError.codeUnits);
-      return utfDecodedError;
-    }
-    return null;
   }
 }

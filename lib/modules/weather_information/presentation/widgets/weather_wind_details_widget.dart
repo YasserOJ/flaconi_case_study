@@ -32,7 +32,7 @@ class WeatherWindDetailsWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.wind_power),
+                  const Icon(Icons.wind_power),
                   Text(
                     'Wind:',
                     style: boldTextStyle,

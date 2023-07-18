@@ -33,7 +33,8 @@ class _WeatherInformationViewState extends State<WeatherInformationView> {
       mobile: OrientationLayout(
         portrait: (BuildContext context) =>
             const WeatherInformationViewPortrait(),
-        //landscape: (BuildContext context) => const WeatherInformationViewLandscape(),
+        landscape: (BuildContext context) =>
+            const WeatherInformationViewLandscape(),
       ),
     );
   }
