@@ -1,3 +1,6 @@
+import 'package:flaconi_case_study/core/enums/weather_metrics_enum.dart';
+import 'package:flaconi_case_study/core/managers/user_manager.dart';
+import 'package:flaconi_case_study/core/utils/dependency_injection/component/app_component.dart';
 import 'package:flaconi_case_study/core/utils/ui_utils/config_setup/config.dart';
 import 'package:flaconi_case_study/core/utils/ui_utils/config_setup/config_manager.dart';
 import 'package:flaconi_case_study/generated/l10n.dart';
@@ -24,7 +27,16 @@ class WeatherInformationViewAppBar extends StatefulWidget
 
 class _WeatherInformationViewAppBarState
     extends State<WeatherInformationViewAppBar> {
-  bool switchValue = false;
+  late bool switchValue;
+
+  @override
+  void initState() {
+    super.initState();
+    switchValue =
+        locator<UserManager>().userMetric == WeatherMetricsEnum.celsius
+            ? false
+            : true;
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -24,9 +24,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "celsius_abbrivation_text": MessageLookupByLibrary.simpleMessage("°C"),
         "cities_app_bar_title": MessageLookupByLibrary.simpleMessage("Cities"),
+        "error_text": MessageLookupByLibrary.simpleMessage("Error"),
         "fahrenheit_abbrivation_text":
             MessageLookupByLibrary.simpleMessage("°F"),
         "feels_like_text": MessageLookupByLibrary.simpleMessage("Feel like"),
+        "general_error_text": MessageLookupByLibrary.simpleMessage(
+            "An error has occured when loading cities weather information.\nPlease retry again."),
         "good_afternoon_text":
             MessageLookupByLibrary.simpleMessage("Good Afternoon"),
         "good_morning_text":
@@ -36,6 +39,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "min_max_text": MessageLookupByLibrary.simpleMessage("Min/Max:"),
         "pressure_metric_text": MessageLookupByLibrary.simpleMessage("hPa"),
         "pressure_text": MessageLookupByLibrary.simpleMessage("Pressure:"),
+        "reached_limit_error_text": MessageLookupByLibrary.simpleMessage(
+            "You have Reached the limit of cities that you can fetch.\nPlease subscribe to our premium plan to get unlimited cities and more."),
+        "subscribe_text": MessageLookupByLibrary.simpleMessage("Subscribe"),
         "wind_speed_metric_text": MessageLookupByLibrary.simpleMessage("KM/h")
       };
 }

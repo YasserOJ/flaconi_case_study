@@ -1,6 +1,8 @@
 import 'package:flaconi_case_study/modules/weather_information/presentation/bloc/weather_information_bloc.dart';
-import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/add_city_widget.dart';
-import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/loading_indicator_widget.dart';
+import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/add_city/add_city_widget.dart';
+import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/error_popoups/limit_reached_error_popup.dart';
+import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/error_popoups/loading_weather_information_error_popup.dart';
+import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/loading_widget/loading_indicator_widget.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_information_view_app_bar.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_information_view_floating_button.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_list_view.dart';
@@ -49,6 +51,30 @@ class _WeatherInformationViewPortraitState
               shouldShowLoadingIndicator = true;
             } else {
               shouldShowLoadingIndicator = false;
+            }
+
+            if (state is WeatherInformationLimitReached) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return LimitReachedErrorPopup(
+                    onTapFunction: () {},
+                  );
+                },
+              );
+            }
+            if (state is WeatherInformationFailed) {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return LoadingWeatherInformationErrorPopup(
+                    onTapFunction: () {
+                      context.read<WeatherInformationBloc>().add(
+                          const GetCurrentWeatherInformationForMultipleCitiesEvent());
+                    },
+                  );
+                },
+              );
             }
           });
         },

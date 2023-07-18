@@ -14,3 +14,5 @@ class WeatherInformationLoading extends WeatherInformationState {}
 class WeatherInformationSuccess extends WeatherInformationState {}
 
 class WeatherInformationFailed extends WeatherInformationState {}
+
+class WeatherInformationLimitReached extends WeatherInformationState {}
