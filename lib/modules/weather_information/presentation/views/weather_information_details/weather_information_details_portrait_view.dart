@@ -93,9 +93,15 @@ class _WeatherInformationDetailsPortraitViewState
                     ],
                   ),
                   const Spacer(),
-                  WeatherWindDetailsWidget(
-                    windSpeed: widget.weatherInformationEntity.windSpeed,
-                    windDirection: widget.weatherInformationEntity.windDir,
+                  Row(
+                    children: [
+                      const Spacer(),
+                      WeatherWindDetailsWidget(
+                        windSpeed: widget.weatherInformationEntity.windSpeed,
+                        windDirection: widget.weatherInformationEntity.windDir,
+                      ),
+                      const Spacer(),
+                    ],
                   ),
                   const Spacer(),
                   Text(

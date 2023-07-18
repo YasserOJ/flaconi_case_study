@@ -19,10 +19,9 @@ class WeatherItemDetailCard extends StatelessWidget {
     return ConfigManager(
       builder: (context, config, _) {
         return Container(
-          padding: EdgeInsets.symmetric(
-            vertical: config.getResponsiveItemSize(20),
+          padding: EdgeInsets.all(
+            config.getResponsiveItemSize(20),
           ),
-          width: config.screenWidth * .4,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(
               config.getResponsiveItemSize(20),

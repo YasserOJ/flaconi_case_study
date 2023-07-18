@@ -13,6 +13,7 @@ import 'package:flaconi_case_study/modules/weather_information/presentation/widg
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_list_view.dart';
 import 'package:flaconi_case_study/modules/weather_information/presentation/widgets/weather_wind_details_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherInformationViewLandscape extends StatefulWidget {
@@ -28,6 +29,19 @@ class _WeatherInformationViewLandscapeState
   bool shouldShowLoadingIndicator = false;
   WeatherInformationEntity? selectedWeatherInfo;
   int selectedIndex = 0;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      final weatherInformation = context.read<WeatherInformationBloc>().weatherInformation;
+      if (weatherInformation.isNotEmpty) {
+        setState(() {
+          selectedWeatherInfo ??= weatherInformation.first;
+        });
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +109,10 @@ class _WeatherInformationViewLandscapeState
                     Flexible(
                       flex: 2,
                       child: Scaffold(
-                        floatingActionButtonLocation: FloatingActionButtonLocation.miniEndFloat,
-                        floatingActionButton: WeatherInformationViewFloatingButton(
+                        floatingActionButtonLocation:
+                            FloatingActionButtonLocation.miniEndFloat,
+                        floatingActionButton:
+                            WeatherInformationViewFloatingButton(
                           buttonClicked: () {
                             showDialog(
                               context: context,
@@ -104,8 +120,8 @@ class _WeatherInformationViewLandscapeState
                                 return AddCityWidget(
                                   onTapFunction: (text) async {
                                     context.read<WeatherInformationBloc>().add(
-                                      AddCityWeatherInformation(text),
-                                    );
+                                          AddCityWeatherInformation(text),
+                                        );
                                   },
                                 );
                               },

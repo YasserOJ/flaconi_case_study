@@ -11,7 +11,7 @@ class ErrorModel {
     message = error['info'];
   }
 
-  String? errorCode;
+  int? errorCode;
   int? statusCode;
   String? message;
 
@@ -19,7 +19,7 @@ class ErrorModel {
     return message;
   }
 
-  String? getErrorCodeString() {
+  int? getErrorCodeString() {
     return errorCode;
   }
 }
